@@ -39,10 +39,6 @@ public class Livro {
 		this.titulo = titulo;
 		this.sinopse = sinopse;
 	}
-	
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public void setEditora(String editora) {
 		this.editora = editora;
