@@ -1,17 +1,36 @@
 package br.com.estudoapi.pojo;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@Entity
+@JsonInclude(Include.NON_NULL)
 public class Livro {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) 
+	@JsonProperty
 	private long id;
 	
+	@JsonProperty
 	private String editora;
 	
+	@JsonProperty
 	private String autor;
 	
+	@JsonProperty
 	private String titulo;
 	
+	@JsonProperty
 	private String sinopse;
 	
+	protected Livro(){}
 	
 	public Livro(long id, String editora, String autor, String titulo, String sinopse){
 		this.id = id;
