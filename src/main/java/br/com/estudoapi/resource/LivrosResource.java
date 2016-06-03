@@ -34,4 +34,10 @@ public class LivrosResource {
 	public Livro buscar(@PathVariable(value = "id") long id){
 		return livroRepository.findById(id);
 	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public void remover(@PathVariable(value = "id") long id){
+		Livro livro = livroRepository.findById(id);
+		livroRepository.delete(livro);
+	}
 }
