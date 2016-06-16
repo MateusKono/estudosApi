@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.estudoapi.exception.LivroNaoEncontradoException;
 import br.com.estudoapi.pojo.Livro;
 import br.com.estudoapi.service.LivroService;
 
@@ -40,29 +41,28 @@ public class LivrosResource {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Livro> buscar(@PathVariable(value = "id") long id){
-		Livro livro = livroService.buscar(id);
-		if(livro == null)
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(livro);
-		
-		return ResponseEntity.ok(livro);
+	public ResponseEntity<Livro> buscar(@PathVariable(value = "id") long id){			
+		return ResponseEntity.ok(livroService.buscar(id));
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> remover(@PathVariable(value = "id") long id){
-		livroService.deletar(livroService.buscar(id));
+		Livro livro = livroService.buscar(id);
+		
+		livroService.deletar(livro);
 		
 		return ResponseEntity.ok().build();
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> atualizar(@RequestBody Livro livro, @PathVariable(value = "id") long id){
-		livro.setId(id);
+		livroService.buscar(id);
 		
+		livro.setId(id);
 		livroService.salvar(livro);
 		
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("").
-				buildAndExpand(livro.getId()).toUri();;
+				buildAndExpand(livro.getId()).toUri();
 				
 		return ResponseEntity.created(location).build();
 	}

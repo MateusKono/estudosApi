@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-@JsonInclude(Include.NON_NULL)
+@JsonInclude(Include.NON_NULL)	
 public class Livro {
 	
 	@Id

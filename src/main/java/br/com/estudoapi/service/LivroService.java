@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.estudoapi.exception.LivroNaoEncontradoException;
 import br.com.estudoapi.pojo.Livro;
 import br.com.estudoapi.repository.LivrosRepository;
 
@@ -19,7 +20,12 @@ public class LivroService {
 	}
 	
 	public Livro buscar(long id){
-		return livroRepository.findById(id);
+		Livro toReturn = livroRepository.findById(id);
+		
+		if (toReturn == null)
+			throw new LivroNaoEncontradoException("Livro não encontrado");
+			
+		return toReturn;
 	}
 	
 	public Livro salvar(Livro livro){
