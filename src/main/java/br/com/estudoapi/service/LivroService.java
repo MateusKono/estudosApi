@@ -47,4 +47,8 @@ public class LivroService {
 		comentario.setLivro(livro);
 		return comentariosRepository.save(comentario);
 	}
+	
+	public List<Comentario> listarComentarios(Livro livro){
+		return comentariosRepository.findByLivro(livro);
+	}
 }
