@@ -1,9 +1,12 @@
 package br.com.estudoapi.pojo;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -30,16 +33,28 @@ public class Livro {
 	@JsonProperty
 	private String sinopse;
 	
+	@OneToMany(mappedBy = "livro")
+	private List<Comentario> comentarios;
+	
 	protected Livro(){}
 	
-	public Livro(long id, String editora, String autor, String titulo, String sinopse){
+	public Livro(long id, String editora, String autor, String titulo, String sinopse, List<Comentario> comentarios){
 		this.id = id;
 		this.editora = editora;
 		this.autor = autor;
 		this.titulo = titulo;
 		this.sinopse = sinopse;
+		this.comentarios = comentarios;
 	}
 	
+	public List<Comentario> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(List<Comentario> comentarios) {
+		this.comentarios = comentarios;
+	}
+
 	public void setId(long id) {
 		this.id = id;
 	}

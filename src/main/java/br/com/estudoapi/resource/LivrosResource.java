@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.estudoapi.exception.LivroNaoEncontradoException;
+import br.com.estudoapi.pojo.Comentario;
 import br.com.estudoapi.pojo.Livro;
 import br.com.estudoapi.service.LivroService;
 
@@ -32,7 +32,7 @@ public class LivrosResource {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> salvar(@RequestBody Livro livro){
-		livro = livroService.salvar(livro);
+		livroService.salvar(livro);
 		
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").
 				buildAndExpand(livro.getId()).toUri();
@@ -65,5 +65,12 @@ public class LivrosResource {
 				buildAndExpand(livro.getId()).toUri();
 				
 		return ResponseEntity.created(location).build();
+	}
+	
+	@RequestMapping(value = "/{id}/comentarios", method = RequestMethod.POST)
+	public ResponseEntity<Void> adicionarComentario(@RequestBody Comentario comentario, @PathVariable(value = "id") long id){		
+		livroService.salvarComentario(id, comentario);
+		
+		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 }
