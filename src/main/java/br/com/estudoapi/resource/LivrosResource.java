@@ -3,8 +3,10 @@ package br.com.estudoapi.resource;
 
 import java.net.URI;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,8 +43,9 @@ public class LivrosResource {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Livro> buscar(@PathVariable(value = "id") long id){			
-		return ResponseEntity.ok(livroService.buscar(id));
+	public ResponseEntity<Livro> buscar(@PathVariable(value = "id") long id){
+		CacheControl cacheControl = CacheControl.maxAge(20, TimeUnit.SECONDS);
+	    return ResponseEntity.status(HttpStatus.OK).cacheControl(cacheControl).body(livroService.buscar(id));
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
