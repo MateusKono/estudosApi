@@ -39,6 +39,7 @@ public class Livro {
 	private String sinopse;
 	
 	@OneToMany(mappedBy = "livro", cascade=CascadeType.ALL)
+	@JsonInclude(Include.NON_EMPTY)
 	private List<Comentario> comentarios;
 	
 	protected Livro(){}
