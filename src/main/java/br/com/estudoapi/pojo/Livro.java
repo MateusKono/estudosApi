@@ -2,10 +2,13 @@ package br.com.estudoapi.pojo;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -25,7 +28,9 @@ public class Livro {
 	private String editora;
 	
 	@JsonProperty
-	private String autor;
+	@ManyToOne
+	@JoinColumn(name = "AUTOR_ID")
+	private Autor autor;
 	
 	@JsonProperty
 	private String titulo;
@@ -33,12 +38,12 @@ public class Livro {
 	@JsonProperty
 	private String sinopse;
 	
-	@OneToMany(mappedBy = "livro")
+	@OneToMany(mappedBy = "livro", cascade=CascadeType.ALL)
 	private List<Comentario> comentarios;
 	
 	protected Livro(){}
 	
-	public Livro(long id, String editora, String autor, String titulo, String sinopse, List<Comentario> comentarios){
+	public Livro(long id, String editora, Autor autor, String titulo, String sinopse, List<Comentario> comentarios){
 		this.id = id;
 		this.editora = editora;
 		this.autor = autor;
@@ -63,7 +68,7 @@ public class Livro {
 		this.editora = editora;
 	}
 
-	public void setAutor(String autor) {
+	public void setAutor(Autor autor) {
 		this.autor = autor;
 	}
 	
@@ -83,7 +88,7 @@ public class Livro {
 		return editora;
 	}
 
-	public String getAutor() {
+	public Autor getAutor() {
 		return autor;
 	}
 	

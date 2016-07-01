@@ -15,4 +15,18 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DetalheErro(
 				HttpStatus.NOT_FOUND.value(), ex.getMessage(), "https://www.google.com.br/"));
 	}
+	
+	@ExceptionHandler(AutorNaoEncontradoException.class)
+	@ResponseStatus(value = HttpStatus.NOT_FOUND)
+	public ResponseEntity<DetalheErro> trataAutorNaoEncontrado(AutorNaoEncontradoException ex){
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DetalheErro(
+				HttpStatus.NOT_FOUND.value(), ex.getMessage(), "https://www.google.com.br/"));
+	}
+	
+	@ExceptionHandler(AutorExistenteException.class)
+	@ResponseStatus(value = HttpStatus.CONFLICT)
+	public ResponseEntity<DetalheErro> trataAutorNaoEncontrado(AutorExistenteException ex){
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(new DetalheErro(
+				HttpStatus.CONFLICT.value(), ex.getMessage(), "https://www.google.com.br/"));
+	}
 }
