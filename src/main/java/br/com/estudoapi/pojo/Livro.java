@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -33,9 +35,11 @@ public class Livro {
 	private Autor autor;
 	
 	@JsonProperty
+	@NotNull(message = "Campo obrigatório.")
 	private String titulo;
 	
 	@JsonProperty
+	@Size(max = 1500, message = "O campo resumo excedeu o tamanho permitido. Permitido 1500 caracteres.")
 	private String sinopse;
 	
 	@OneToMany(mappedBy = "livro", cascade=CascadeType.ALL)

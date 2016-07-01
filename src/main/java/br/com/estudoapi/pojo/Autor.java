@@ -18,10 +18,10 @@ public class Autor {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonIgnore
 	private long id;	
 	
 	@JsonProperty
+	//@NotNull(message = "Campo obrigatório.")
 	private String nome;
 	
 	@JsonProperty
