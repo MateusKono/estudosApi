@@ -19,12 +19,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	}
 	  
 	protected void configure(HttpSecurity http) throws Exception {
-	  http.csrf().disable();
-	  http.authorizeRequests()
-	  .anyRequest().authenticated()
-	  .and()
-	  .formLogin()
-	  .and()
-	  .httpBasic();
+		http.headers().cacheControl().disable();
+		http.csrf().disable();
+		http.authorizeRequests()
+		.anyRequest().authenticated()
+		.and()
+		.formLogin()
+		.and()
+		.httpBasic();
 	}
 }
